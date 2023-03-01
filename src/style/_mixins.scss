@@ -1,0 +1,32 @@
+// fonts
+@mixin fs-14 {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+}
+
+@mixin fs-16 {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+@mixin fs-22 {
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 27px;
+}
+
+@mixin fs-24 {
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 30px;
+}
+
+// media
+
+@mixin pc {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
