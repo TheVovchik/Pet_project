@@ -11,6 +11,12 @@
   line-height: 24px;
 }
 
+@mixin fs-18 {
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 24px;
+}
+
 @mixin fs-22 {
   font-weight: 800;
   font-size: 22px;
@@ -23,7 +29,19 @@
   line-height: 30px;
 }
 
-// media
+// media3
+
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: 768px) {
+    @content;
+  }
+}
 
 @mixin pc {
   @media (min-width: 1200px) {

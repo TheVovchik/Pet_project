@@ -3,7 +3,13 @@
 .nav-link {
   font-family: inherit;
   color: var(--color-main);
-  @include fs-14;
+  @include fs-18;
+  width: 50%;
+
+  @include tablet {
+    width: 100%;
+    @include fs-14;
+  }
 
   @include pc {
     @include fs-24;
