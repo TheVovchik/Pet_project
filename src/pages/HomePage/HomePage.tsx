@@ -13,6 +13,8 @@ import * as enterActions from '../../storage/features/enter';
 import { useAppSelector } from '../../storage/hooks';
 import useWindowDimensions from '../../hooks/useDeviceWidthChecker';
 import { HeaderMobile } from '../../components/HeaderMobile';
+import { FooterMobile } from '../../components/FooterMobile';
+import { FooterDesktop } from '../../components/FooterDesktop';
 
 export const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -73,13 +75,206 @@ export const HomePage = () => {
 
       <div className="content__main">
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus ea corrupti illo? Praesentium maiores nemo sequi distinctio, facilis vel ipsum doloribus mollitia minus, consequuntur nam accusantium, omnis sed vero provident!
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+          Possimus ea corrupti illo? Praesentium maiores nemo sequi
+          distinctio, facilis vel ipsum doloribus mollitia minus,
+          consequuntur nam accusantium, omnis sed vero provident!
         </p>
       </div>
 
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus ea corrupti illo? Praesentium maiores nemo sequi distinctio, facilis vel ipsum doloribus mollitia minus, consequuntur nam accusantium, omnis sed vero provident!
-      </p>
+      {isMobile ? <FooterMobile /> : <FooterDesktop />}
     </div>
   );
 };
