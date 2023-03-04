@@ -1,30 +1,29 @@
 import {
   Box,
-  Flex, Image, Link, Text, useMediaQuery,
+  Flex, Image, useMediaQuery,
 } from '@chakra-ui/react';
-import { IconProp } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhone } from '@fortawesome/fontawesome-free-solid';
-import {
-  faLocationDot, faCalendarWeek,
-} from '@fortawesome/free-solid-svg-icons';
 import Pande from '../../IMAGES/footer/panda.png';
-import bg from '../../IMAGES/footer/bg.png';
-import { colors } from '../../style/colors';
-import { googleMapRedirectUrl } from '../../constants/links';
+import bg from '../../IMAGES/footer/pows20.png';
 import { SocialLinks } from '../SocialLinks';
 import { GoogleMap } from '../GoogleMap';
+import { PhoneContact } from '../PhoneContact';
+import { AdressContact } from '../AdressContact';
+import { ScheduleContact } from '../ScheduleContact';
 
 export const FooterContactsDesktop = () => {
   const [isLargerThan1200] = useMediaQuery('(min-width: 1200px)');
 
   return (
     <Box
-      bgImg={bg}
-      bgPos="top right"
-      bgSize="cover"
-      bgRepeat="no-repeat"
+      pos="relative"
     >
+      <Image
+        pos="absolute"
+        src={bg}
+        bottom="0"
+        left="0"
+        zIndex="-1"
+      />
       <Flex
         pos="relative"
         p="20px"
@@ -44,117 +43,25 @@ export const FooterContactsDesktop = () => {
         />
 
         <Flex
+          align="center"
           direction="column"
           gap="10px"
           minW="320px"
         >
 
-          <Flex
-            align="center"
-          >
-            <FontAwesomeIcon
-              icon={faPhone as IconProp}
-              style={{
-                marginRight: '8px',
-                fontSize: '40px',
-                color: colors.main,
-              }}
-            />
+          <PhoneContact fs_icon="40px" fs_link="20px" mr_icon="16px" />
 
-            <Flex
-              direction="column"
-            >
-              <Link
-                href="tel:+380989066988"
-                color={colors.main}
-                _hover={{
-                  textDecoration: 'none',
-                }}
-                fontSize="20px"
-                fontWeight="700"
-              >
-                098 906 69 88
-              </Link>
+          <AdressContact fs_icon="40px" fs_link="20px" mr_icon="16px" />
 
-              <Link
-                href="tel:+380994276013"
-                color={colors.main}
-                _hover={{
-                  textDecoration: 'none',
-                }}
-                fontSize="20px"
-                fontWeight="700"
-              >
-                099 427 60 13
-              </Link>
-            </Flex>
-          </Flex>
+          <ScheduleContact fs_icon="40px" fs_text="20px" mr_icon="16px" />
 
-          <Flex
-            align="center"
-          >
-            <FontAwesomeIcon
-              icon={faLocationDot as IconProp}
-              style={{
-                marginRight: '8px',
-                fontSize: '40px',
-                color: colors.main,
-              }}
-            />
-
-            <Flex
-              direction="column"
-            >
-              <Link
-                href={googleMapRedirectUrl}
-                color={colors.main}
-                target="blanc"
-                _hover={{
-                  textDecoration: 'none',
-                }}
-                fontSize="20px"
-                fontWeight="700"
-              >
-                пр-т Б. Хмельницького, 139
-                <br />
-                Дніпро, Україна, 49000
-              </Link>
-            </Flex>
-          </Flex>
-
-          <Flex
-            align="center"
-          >
-            <FontAwesomeIcon
-              icon={faCalendarWeek as IconProp}
-              style={{
-                marginRight: '8px',
-                fontSize: '40px',
-                color: colors.main,
-              }}
-            />
-
-            <Flex
-              direction="column"
-            >
-              <Text
-                color={colors.main}
-                fontSize="20px"
-                fontWeight="700"
-              >
-                08:00 - 19:00
-                <br />
-                без вихідних
-              </Text>
-            </Flex>
-          </Flex>
         </Flex>
 
         <Box
           pr="200px"
           w="100%"
         >
-          <GoogleMap />
+          <GoogleMap height="400px" width="90%" />
         </Box>
       </Flex>
 

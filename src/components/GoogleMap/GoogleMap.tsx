@@ -16,7 +16,15 @@ type Position = {
   lng: number,
 };
 
-export const GoogleMap: FC = () => {
+type Props = {
+  width: string,
+  height: string,
+};
+
+export const GoogleMap: FC<Props> = ({
+  width,
+  height,
+}) => {
   const { isLoaded, loadError } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_MAPS_KEY as string,
   });
@@ -59,8 +67,8 @@ export const GoogleMap: FC = () => {
   return (
     <Box
       m="0 auto"
-      w="90%"
-      h="400px"
+      w={width}
+      h={height}
       bg="rgba(84,115,158,.06)"
       borderRadius="30px"
       p="10px"
