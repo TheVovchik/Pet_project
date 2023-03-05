@@ -1,5 +1,5 @@
 export enum ContentActions {
-  ADD_VACANCY,
-  REMOVE_VACANCY,
-  UPDATE_VACANCY,
+  ADD_VACANCY = 'ADD',
+  REMOVE_VACANCY = 'REMOVE',
+  UPDATE_VACANCY = 'UPDATE',
 }

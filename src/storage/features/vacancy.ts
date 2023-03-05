@@ -2,34 +2,42 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type VacancyState = {
-  cover: File | null;
+  cover: string;
   coverUrl: string;
   title: string;
   duties: string[];
   demands: string[];
   schedule: string;
   contacts: string;
+  id: string;
 };
 
 const initialState: VacancyState = {
-  cover: null,
+  cover: '',
   coverUrl: '',
   title: '',
   duties: [],
   demands: [],
   schedule: '',
   contacts: '',
+  id: '',
 };
 
 const VacancySlice = createSlice({
   name: 'admin',
   initialState,
   reducers: {
-    setCover: (state, action: PayloadAction<File>) => {
+    setCover: (state, action: PayloadAction<string>) => {
       state.cover = action.payload;
     },
     setTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
+    },
+    setDuties: (state, action: PayloadAction<string[]>) => {
+      state.duties = action.payload;
+    },
+    setDemands: (state, action: PayloadAction<string[]>) => {
+      state.demands = action.payload;
     },
     addDutie: (state, action: PayloadAction<string>) => {
       state.duties.push(action.payload);
@@ -51,6 +59,9 @@ const VacancySlice = createSlice({
     },
     setCoverUrl: (state, action: PayloadAction<string>) => {
       state.coverUrl = action.payload;
+    },
+    setVacancyId: (state, action: PayloadAction<string>) => {
+      state.id = action.payload;
     },
   },
 });

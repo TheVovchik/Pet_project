@@ -38,11 +38,12 @@ export const AdminPanel = () => {
 
   return (
     <Grid
+      minH="100vh"
       templateColumns="1fr 1fr 3fr"
     >
       <Flex
         direction="column"
-        h="100vh"
+        h="100%"
         borderRight="2px solid gray"
         gap="10px"
         p="20px"
@@ -87,22 +88,42 @@ export const AdminPanel = () => {
 
       <Flex
         direction="column"
-        h="100vh"
+        h="100%"
         borderRight="2px solid gray"
         gap="10px"
         p="20px"
       >
-        <CreateVacancyForm />
+        <Heading
+          fontFamily="inherit"
+          color={colors.main}
+          fontWeight="800"
+          fontSize="24px"
+          mb="20px"
+        >
+          Панель керування
+        </Heading>
+        {contentAction
+          && (<CreateVacancyForm action={contentAction} />)}
       </Flex>
 
       <Flex
         direction="column"
-        h="100vh"
+        h="100%"
         borderRight="2px solid gray"
         gap="10px"
         p="20px"
       >
-        <VacancyPreview />
+        <Heading
+          fontFamily="inherit"
+          color={colors.main}
+          fontWeight="800"
+          fontSize="24px"
+          mb="20px"
+        >
+          Попередній перегляд
+        </Heading>
+
+        {contentAction !== ContentActions.REMOVE_VACANCY && <VacancyPreview />}
       </Flex>
     </Grid>
   );
