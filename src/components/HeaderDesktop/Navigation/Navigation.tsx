@@ -38,35 +38,35 @@ export const Navigation: FC = () => {
         <ListItem>
           <NavigationLink
             name="Послуги"
-            path="services"
+            path="/services"
           />
         </ListItem>
 
         <ListItem>
           <NavigationLink
             name="Команда"
-            path="team"
+            path="/team"
           />
         </ListItem>
 
         <ListItem>
           <NavigationLink
             name="Вакансії"
-            path="vacancies"
+            path="/vacancies"
           />
         </ListItem>
 
         <ListItem>
           <NavigationLink
             name="Блог"
-            path="blog"
+            path="/blog"
           />
         </ListItem>
 
         <ListItem>
           <NavigationLink
             name="Контакти"
-            path="contacts"
+            path="/contacts"
           />
         </ListItem>
       </UnorderedList>

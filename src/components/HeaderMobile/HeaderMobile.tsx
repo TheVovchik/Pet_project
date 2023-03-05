@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { FC } from 'react';
 import { HamburgerIcon } from '@chakra-ui/icons';
+import { useNavigate } from 'react-router-dom';
 import { ContactPhones } from '../HeaderDesktop/ContactPhones';
 import Logo from '../../IMAGES/main/logo.png';
 import { colors } from '../../style/colors';
@@ -20,6 +21,12 @@ import { NavigationLink } from '../HeaderDesktop/NavigationLink';
 
 export const HeaderMobile: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const navigate = useNavigate();
+
+  const handleNavigateHome = () => {
+    navigate('/home');
+  };
 
   return (
     <Flex
@@ -29,7 +36,9 @@ export const HeaderMobile: FC = () => {
       p="10px"
     >
       <Box
+        cursor="pointer"
         h="100%"
+        onClick={handleNavigateHome}
       >
         <Image
           src={Logo}
@@ -72,27 +81,27 @@ export const HeaderMobile: FC = () => {
 
             <NavigationLink
               name="Послуги"
-              path="services"
+              path="/services"
             />
 
             <NavigationLink
               name="Команда"
-              path="team"
+              path="/team"
             />
 
             <NavigationLink
               name="Вакансії"
-              path="vacancies"
+              path="/vacancies"
             />
 
             <NavigationLink
               name="Блог"
-              path="blog"
+              path="/blog"
             />
 
             <NavigationLink
               name="Контакти"
-              path="contacts"
+              path="/contacts"
             />
           </DrawerBody>
         </DrawerContent>

@@ -14,6 +14,7 @@ import { SocialButtons } from '../SocialLinks/SocialButtons';
 export const ContactsMobile: FC = () => {
   return (
     <Flex
+      w="100%"
       direction="column"
       gap="20px"
     >

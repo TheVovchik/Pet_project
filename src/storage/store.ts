@@ -1,10 +1,14 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import admin from './features/admin';
 import enter from './features/enter';
+import vacancy from './features/vacancy';
 
 export const store = configureStore({
   reducer: {
     enter,
+    admin,
+    vacancy,
   },
 });
 
