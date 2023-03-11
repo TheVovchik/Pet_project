@@ -2,14 +2,14 @@
 /* eslint-disable no-console */
 /* eslint-disable import/no-extraneous-dependencies */
 import {
-  Button,
+  Button, useToast,
   Flex, FormLabel, IconButton, Input, Progress, Text,
 } from '@chakra-ui/react';
 import React, {
   FC, Fragment, useEffect, useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import { AddIcon, DeleteIcon } from '@chakra-ui/icons';
+import { AddIcon, DeleteIcon, AttachmentIcon } from '@chakra-ui/icons';
 import {
   ref,
   uploadBytesResumable,
@@ -50,16 +50,10 @@ export const CreateVacancyForm: FC<Props> = ({ action }) => {
   const collectionRef = collection(dataBase, 'vacancy');
   const isUpdate = action === ContentActions.UPDATE_VACANCY;
   const isDelete = action === ContentActions.REMOVE_VACANCY;
+  const toast = useToast();
 
   const clearFields = () => {
-    dispatch(vacancyActions.actions.setTitle(''));
-    dispatch(vacancyActions.actions.setCover(''));
-    dispatch(vacancyActions.actions.setCoverUrl(''));
-    dispatch(vacancyActions.actions.setDuties([]));
-    dispatch(vacancyActions.actions.setDemands([]));
-    dispatch(vacancyActions.actions.setSchedule(''));
-    dispatch(vacancyActions.actions.setContacts(''));
-    dispatch(vacancyActions.actions.setVacancyId(''));
+    dispatch(vacancyActions.actions.resetFields());
   };
 
   const getData = async () => {
@@ -86,11 +80,27 @@ export const CreateVacancyForm: FC<Props> = ({ action }) => {
       contacts,
     })
       .then(() => {
-        alert('Data was added');
+        toast({
+          title: 'SUCCESS',
+          description: 'Data was added',
+          status: 'success',
+          duration: 2000,
+          isClosable: false,
+          variant: 'top-accent',
+          position: 'top',
+        });
         clearFields();
       })
       .catch((error) => {
-        alert(error.message);
+        toast({
+          title: 'ERROR',
+          description: error.message,
+          status: 'warning',
+          duration: 2000,
+          isClosable: false,
+          variant: 'top-accent',
+          position: 'top',
+        });
       });
   };
 
@@ -108,9 +118,25 @@ export const CreateVacancyForm: FC<Props> = ({ action }) => {
           contacts,
         });
       });
-      alert('Transaction successfully committed!');
+      toast({
+        title: 'SUCCESS',
+        description: 'Transaction successfully committed!',
+        status: 'success',
+        duration: 2000,
+        isClosable: false,
+        variant: 'top-accent',
+        position: 'top',
+      });
     } catch (e) {
-      alert('Transaction failed');
+      toast({
+        title: 'ERROR',
+        description: 'Something went wrong',
+        status: 'warning',
+        duration: 2000,
+        isClosable: false,
+        variant: 'top-accent',
+        position: 'top',
+      });
     }
   };
 
@@ -134,11 +160,11 @@ export const CreateVacancyForm: FC<Props> = ({ action }) => {
     if (e.target.files) {
       const file = e.target.files[0];
 
-      setCoverFile(file);
-
       if (!file.type.includes('image/')) {
         return;
       }
+
+      setCoverFile(file);
 
       const path = URL.createObjectURL(file);
 
@@ -176,7 +202,7 @@ export const CreateVacancyForm: FC<Props> = ({ action }) => {
     if (coverFile) {
       setIsUpload(true);
 
-      const storageRef = ref(storage, coverFile.name);
+      const storageRef = ref(storage, `vacancy/${coverFile.name}`);
       const uploadTask = uploadBytesResumable(storageRef, coverFile);
 
       uploadTask.on('state_changed', (snapshot) => {
@@ -186,13 +212,29 @@ export const CreateVacancyForm: FC<Props> = ({ action }) => {
         setUploadProgress(progress);
       },
       (error) => {
-        alert(error.message);
+        toast({
+          title: 'ERROR',
+          description: 'Something went wrong',
+          status: 'warning',
+          duration: 2000,
+          isClosable: false,
+          variant: 'top-accent',
+          position: 'top',
+        });
       },
       () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setIsUpload(false);
           dispatch(vacancyActions.actions.setCoverUrl(downloadURL));
-          alert('photo successfully updated');
+          toast({
+            title: 'SUCCESS',
+            description: 'Photo successfully updated!',
+            status: 'success',
+            duration: 2000,
+            isClosable: false,
+            variant: 'top-accent',
+            position: 'top',
+          });
         });
       });
     }
@@ -255,9 +297,21 @@ export const CreateVacancyForm: FC<Props> = ({ action }) => {
         <Flex
           direction="column"
         >
-          <FormLabel htmlFor="file-input">
+          <FormLabel
+            htmlFor="file-input"
+            color="white"
+            p="10px 20px"
+            w="fit-content"
+            bg={colors.main}
+            display="flex"
+            alignItems="center"
+            gap="14px"
+            borderRadius="0.375rem"
+            cursor="pointer"
+          >
+            <AttachmentIcon />
             <Text>
-              Add Cover
+              Завантажити фотообкладинку
             </Text>
 
             <input
@@ -266,6 +320,9 @@ export const CreateVacancyForm: FC<Props> = ({ action }) => {
               accept="image/*"
               onChange={handleSetVacancyCover}
               defaultValue=""
+              style={{
+                display: 'none',
+              }}
             />
           </FormLabel>
 
@@ -290,7 +347,7 @@ export const CreateVacancyForm: FC<Props> = ({ action }) => {
 
           <FormLabel htmlFor="title">
             <Text>
-              Додати титул
+              Додати назву
             </Text>
 
             <Input

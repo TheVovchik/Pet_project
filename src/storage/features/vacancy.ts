@@ -24,9 +24,19 @@ const initialState: VacancyState = {
 };
 
 const VacancySlice = createSlice({
-  name: 'admin',
+  name: 'vacancy',
   initialState,
   reducers: {
+    resetFields: (state) => {
+      state.cover = '';
+      state.coverUrl = '';
+      state.title = '';
+      state.id = '';
+      state.duties = [];
+      state.demands = [];
+      state.schedule = '';
+      state.contacts = '';
+    },
     setCover: (state, action: PayloadAction<string>) => {
       state.cover = action.payload;
     },

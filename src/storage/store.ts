@@ -3,12 +3,14 @@ import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import admin from './features/admin';
 import enter from './features/enter';
 import vacancy from './features/vacancy';
+import post from './features/post';
 
 export const store = configureStore({
   reducer: {
     enter,
     admin,
     vacancy,
+    post,
   },
 });
 

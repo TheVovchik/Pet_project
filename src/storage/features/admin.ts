@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getFromLocalStorage } from '../../utils/localStorage';
 
 type AdminState = {
@@ -16,8 +16,9 @@ const AdminSlice = createSlice({
   name: 'admin',
   initialState,
   reducers: {
-    setStatus: (state) => {
+    setUserLogin: (state, action: PayloadAction<string>) => {
       state.signedIn = true;
+      state.uid = action.payload;
     },
   },
 });

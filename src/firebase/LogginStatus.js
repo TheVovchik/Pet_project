@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import app from './config';
 import { setInLocalStorage } from '../utils/localStorage';

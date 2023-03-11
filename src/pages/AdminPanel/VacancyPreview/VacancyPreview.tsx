@@ -32,8 +32,10 @@ export const VacancyPreview = () => {
 
   return (
     <Flex
+      maxH="100vh"
       direction="column"
       align="center"
+      overflowY="auto"
     >
       <VacancyImage image={coverUrl || cover} />
 

@@ -1,6 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable no-console */
 import { Flex, Heading, Image } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
@@ -60,7 +57,11 @@ export const VacanciesPage = () => {
       />
 
       <div className="content__main">
-        {loading && <Loader />}
+        {loading && (
+          <Flex h="100%" w="100%" align="center" justify="center">
+            <Loader />
+          </Flex>
+        )}
         {!loading && noActualVacancies && (
           <Heading
             textAlign="center"
@@ -83,16 +84,18 @@ export const VacanciesPage = () => {
           </Heading>
         )}
 
-        <Flex
-          display="column"
-          p={isMobile ? '30px 14px' : '30px 50px'}
-        >
-          {!loading && !noActualVacancies && vacancies.map((vacancie) => {
-            return (
-              <Vacancie key={uuid()} vacancie={vacancie} />
-            );
-          })}
-        </Flex>
+        {!loading && !noActualVacancies && (
+          <Flex
+            display="column"
+            p={isMobile ? '30px 14px' : '30px 50px'}
+          >
+            {vacancies.map((vacancie) => {
+              return (
+                <Vacancie key={uuid()} vacancie={vacancie} />
+              );
+            })}
+          </Flex>
+        )}
       </div>
 
       {isMobile ? <FooterMobile /> : <FooterDesktop />}

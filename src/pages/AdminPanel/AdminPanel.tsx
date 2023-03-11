@@ -9,7 +9,9 @@ import Vacancy from '../../storage/features/vacancy';
 import { useAppSelector } from '../../storage/hooks';
 import { colors } from '../../style/colors';
 import { ContentActions } from '../../types/ContentActionsEnum';
+import { CreatePostForm } from './CreatePostForm';
 import { CreateVacancyForm } from './CreateVacancyForm';
+import { PostPreview } from './PostPreview';
 import { VacancyPreview } from './VacancyPreview';
 
 export const AdminPanel = () => {
@@ -19,6 +21,16 @@ export const AdminPanel = () => {
   ] = useState<ContentActions | null>(null);
   const { uid, signedIn } = useAppSelector(store => store.admin);
   const navigate = useNavigate();
+  const isVacancyPreview = contentAction === ContentActions.ADD_VACANCY
+    || contentAction === ContentActions.UPDATE_VACANCY;
+  const isPostPreview = contentAction === ContentActions.ADD_POST
+    || contentAction === ContentActions.UPDATE_POST;
+  const isVacancyAction = contentAction === ContentActions.ADD_VACANCY
+    || contentAction === ContentActions.UPDATE_VACANCY
+    || contentAction === ContentActions.REMOVE_VACANCY;
+  const isPostAction = contentAction === ContentActions.ADD_POST
+    || contentAction === ContentActions.UPDATE_POST
+    || contentAction === ContentActions.REMOVE_POST;
 
   const handleCheckUserLoggin = async () => {
     await LogginStatus(uid);
@@ -47,6 +59,7 @@ export const AdminPanel = () => {
         borderRight="2px solid gray"
         gap="10px"
         p="20px"
+        minW="250px"
       >
         <Heading
           fontFamily="inherit"
@@ -55,7 +68,7 @@ export const AdminPanel = () => {
           fontSize="24px"
           mb="20px"
         >
-          Виберіть дію
+          Виберіть дію з вакансіями
         </Heading>
 
         <Button
@@ -81,8 +94,46 @@ export const AdminPanel = () => {
           variant="outline"
           type="button"
           onClick={() => handleAction(ContentActions.UPDATE_VACANCY)}
+          mb="20px"
         >
           Редагувати вакансію
+        </Button>
+
+        <Heading
+          fontFamily="inherit"
+          color={colors.main}
+          fontWeight="800"
+          fontSize="24px"
+          mb="20px"
+        >
+          Виберіть дію з статтями
+        </Heading>
+
+        <Button
+          colorScheme="twitter"
+          variant="outline"
+          type="button"
+          onClick={() => handleAction(ContentActions.ADD_POST)}
+        >
+          Додати статтю
+        </Button>
+
+        <Button
+          colorScheme="twitter"
+          variant="outline"
+          type="button"
+          onClick={() => handleAction(ContentActions.REMOVE_POST)}
+        >
+          Видалити статтю
+        </Button>
+
+        <Button
+          colorScheme="twitter"
+          variant="outline"
+          type="button"
+          onClick={() => handleAction(ContentActions.UPDATE_POST)}
+        >
+          Редагувати статтю
         </Button>
       </Flex>
 
@@ -92,6 +143,7 @@ export const AdminPanel = () => {
         borderRight="2px solid gray"
         gap="10px"
         p="20px"
+        minW="250px"
       >
         <Heading
           fontFamily="inherit"
@@ -102,13 +154,15 @@ export const AdminPanel = () => {
         >
           Панель керування
         </Heading>
-        {contentAction
+        {isVacancyAction
           && (<CreateVacancyForm action={contentAction} />)}
+        {isPostAction
+          && (<CreatePostForm action={contentAction} />)}
       </Flex>
 
       <Flex
         direction="column"
-        h="100%"
+        maxH="100vh"
         borderRight="2px solid gray"
         gap="10px"
         p="20px"
@@ -123,7 +177,8 @@ export const AdminPanel = () => {
           Попередній перегляд
         </Heading>
 
-        {contentAction !== ContentActions.REMOVE_VACANCY && <VacancyPreview />}
+        {isVacancyPreview && <VacancyPreview />}
+        {isPostPreview && <PostPreview />}
       </Flex>
     </Grid>
   );
