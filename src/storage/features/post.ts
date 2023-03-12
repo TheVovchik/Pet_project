@@ -6,20 +6,15 @@ type PostState = {
   covers: string[];
   coversUrl: string[];
   title: string;
-  descriptions: string[];
+  description: string;
   id: string;
-};
-
-type DescriptionUpdate = {
-  index: number,
-  text: string,
 };
 
 const initialState: PostState = {
   covers: [],
   coversUrl: [],
   title: '',
-  descriptions: [],
+  description: '',
   id: '',
 };
 
@@ -31,7 +26,7 @@ const PostSlice = createSlice({
       state.covers = [];
       state.coversUrl = [];
       state.title = '';
-      state.descriptions = [];
+      state.description = '';
       state.id = '';
     },
     addCover: (state, action: PayloadAction<string>) => {
@@ -46,24 +41,13 @@ const PostSlice = createSlice({
     setTitle: (state, action: PayloadAction<string>) => {
       state.title = action.payload;
     },
-    addDescription: (state, action: PayloadAction<string>) => {
-      state.descriptions.push(...action.payload.split('//'));
+    setDescription: (state, action: PayloadAction<string>) => {
+      state.description = action.payload;
     },
-    setDescription: (state, action: PayloadAction<string[]>) => {
-      state.descriptions = action.payload;
-    },
-    updateDescription: (state, action: PayloadAction<DescriptionUpdate>) => {
-      state.descriptions = state.descriptions.map((descr, id) => {
-        if (id === action.payload.index) {
-          return action.payload.text;
-        }
+    addCoverUrl: (state, action: PayloadAction<[string, number]>) => {
+      const [url, idx] = action.payload;
 
-        return descr;
-      });
-    },
-
-    addCoverUrl: (state, action: PayloadAction<string>) => {
-      state.coversUrl.push(action.payload);
+      state.coversUrl[idx] = url;
     },
 
     deleteCoverUrl: (state, action: PayloadAction<string>) => {

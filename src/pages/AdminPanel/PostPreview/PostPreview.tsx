@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   Box,
-  Flex, Grid, Heading, IconButton, Image, Text, Textarea,
+  Flex, Heading, IconButton, Image,
 } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { Zoom, Navigation, Pagination } from 'swiper';
@@ -22,16 +22,15 @@ import 'swiper/css';
 import 'swiper/css/zoom';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import './PostPreview.scss';
 
 export const PostPreview = () => {
-  const [inputId, setInputId] = useState<number | null>(null);
-  const [descrText, setDescrText] = useState('');
   const { width } = useWindowDimensions();
   const isMobile = width < 768;
   const dispatch = useDispatch<AppDispatch>();
 
   const {
-    covers, coversUrl, title, descriptions,
+    covers, coversUrl, title, description,
   } = useAppSelector(store => store.post);
   const isSingleImage = (covers.length + coversUrl.length) < 2;
   const haveAnyImage = covers.length > 0 || coversUrl.length > 0;
@@ -43,30 +42,6 @@ export const PostPreview = () => {
   const handleCoverUrlRemove = (cover: string) => {
     dispatch(postActions.actions.deleteCoverUrl(cover));
   };
-
-  const handleInputVisible = (idx: number, descr: string) => {
-    setInputId(idx);
-    setDescrText(descr);
-  };
-
-  const handleChangeDescr = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescrText(e.target.value);
-  };
-
-  const handleSaveChanges = () => {
-    console.log(inputId, descrText);
-    if (inputId !== null && descrText) {
-      dispatch(postActions.actions.updateDescription({
-        index: inputId,
-        text: descrText,
-      }));
-
-      setInputId(null);
-      setDescrText('');
-    }
-  };
-
-  console.log(coversUrl);
 
   return (
     <Flex
@@ -213,48 +188,11 @@ export const PostPreview = () => {
       <Box
         alignSelf="flex-start"
         width="100%"
-      >
-        {descriptions.length > 0
-          ? descriptions.map((descr, idx) => {
-            const isOpen = idx === inputId;
-            const isEmpty = descr === ' ';
-
-            return (
-              <Fragment key={`element${descr} ${idx}`}>
-                {isEmpty && <br />}
-                {!isOpen && !isEmpty && (
-                  <Text
-                    fontSize="16px"
-                    fontWeight="500"
-                    color="black"
-                    onClick={() => handleInputVisible(idx, descr)}
-                  >
-                    {descr}
-                  </Text>
-                )}
-
-                {isOpen && !isEmpty && (
-                  <Textarea
-                    w="100%"
-                    placeholder=""
-                    onChange={handleChangeDescr}
-                    onBlur={handleSaveChanges}
-                    value={descrText}
-                  />
-                )}
-              </Fragment>
-            );
-          })
-          : (
-            <Text
-              fontSize="16px"
-              fontWeight="500"
-              color="black"
-            >
-              додайте опис
-            </Text>
-          )}
-      </Box>
+        className="textbox"
+        dangerouslySetInnerHTML={{
+          __html: description,
+        }}
+      />
     </Flex>
   );
 };

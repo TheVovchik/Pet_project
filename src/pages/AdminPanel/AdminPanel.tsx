@@ -143,7 +143,7 @@ export const AdminPanel = () => {
         borderRight="2px solid gray"
         gap="10px"
         p="20px"
-        minW="250px"
+        minW="350px"
       >
         <Heading
           fontFamily="inherit"

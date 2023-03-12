@@ -1,14 +1,17 @@
+/* eslint-disable no-console */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-plusplus */
 import {
-  Button, useToast, Textarea,
+  Button, useToast,
   Flex, FormLabel, IconButton,
   Input, Progress, Text, Menu,
-  MenuButton, MenuItem, MenuList,
+  MenuButton, MenuItem, MenuList, Box,
 } from '@chakra-ui/react';
 import React, {
   FC, useEffect, useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
+import { v4 as uuid } from 'uuid';
 import {
   AddIcon,
   DeleteIcon,
@@ -23,6 +26,7 @@ import {
 import {
   collection, addDoc, getDocs, runTransaction, doc, deleteDoc,
 } from 'firebase/firestore';
+import { ContentEditableEvent, DefaultEditor } from 'react-simple-wysiwyg';
 import { AppDispatch } from '../../../storage/store';
 import * as postActions from '../../../storage/features/post';
 import { useAppSelector } from '../../../storage/hooks';
@@ -42,13 +46,12 @@ type PostData = {
 
 export const CreatePostForm: FC<Props> = ({ action }) => {
   const [posts, setPosts] = useState<PostData[]>([]);
-  const [descr, setDescr] = useState('');
   const [showForm, setShowForm] = useState(false);
   const [coverFiles, setCoverFiles] = useState<File[]>([]);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [isUpload, setIsUpload] = useState(false);
   const {
-    title, coversUrl, id, descriptions,
+    title, coversUrl, id, description,
   } = useAppSelector(store => store.post);
   const dispatch = useDispatch<AppDispatch>();
   const collectionRef = collection(dataBase, 'posts');
@@ -56,6 +59,15 @@ export const CreatePostForm: FC<Props> = ({ action }) => {
   const isUpdate = action === ContentActions.UPDATE_POST;
   const isDelete = action === ContentActions.REMOVE_POST;
   const toast = useToast();
+
+  const handleDescrInput = (e: ContentEditableEvent) => {
+    dispatch(postActions.actions.setDescription(e.target.value));
+  };
+
+  if (coverFiles.length > 0) {
+    console.log(coverFiles[0].name);
+    console.log(`${uuid()}.${coverFiles[0].name.split('.')[1]}`);
+  }
 
   const clearFields = () => {
     dispatch(postActions.actions.resetFields());
@@ -79,7 +91,7 @@ export const CreatePostForm: FC<Props> = ({ action }) => {
     await addDoc(collectionRef, {
       coversUrl,
       title,
-      descriptions,
+      description,
     })
       .then(() => {
         toast({
@@ -114,7 +126,7 @@ export const CreatePostForm: FC<Props> = ({ action }) => {
         transaction.update(docRef, {
           coversUrl,
           title,
-          descriptions,
+          description,
         });
       });
       toast({
@@ -169,7 +181,7 @@ export const CreatePostForm: FC<Props> = ({ action }) => {
   const handlePostUpdateSelect = (post: PostData) => {
     dispatch(postActions.actions.setTitle(post.body.title));
     dispatch(postActions.actions.setCoverUrl(post.body.coversUrl));
-    dispatch(postActions.actions.setDescription(post.body.descriptions));
+    dispatch(postActions.actions.setDescription(post.body.description));
     dispatch(postActions.actions.setPostId(post.id));
     setShowForm(true);
   };
@@ -196,57 +208,51 @@ export const CreatePostForm: FC<Props> = ({ action }) => {
     dispatch(postActions.actions.setTitle(e.target.value));
   };
 
-  const handleSetPostDescr = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescr(e.target.value);
-  };
+  const uploadFoto = (file: File, idx: number) => {
+    setIsUpload(true);
 
-  const addPostDescr = () => {
-    if (descr) {
-      dispatch(postActions.actions.addDescription(descr));
-      setDescr('');
-    }
-  };
+    const fileName = `${uuid()}.${file.name.split('.')[1]}`;
+    const storageRef = ref(storage, `images/${fileName}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
 
-  const uploadFoto = () => {
-    if (coverFiles.length > 0) {
-      coverFiles.forEach(file => {
-        setIsUpload(true);
+    uploadTask.on('state_changed', (snapshot) => {
+      // eslint-disable-next-line max-len
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-        const storageRef = ref(storage, `images/${file.name}`);
-        const uploadTask = uploadBytesResumable(storageRef, file);
-
-        uploadTask.on('state_changed', (snapshot) => {
-        // eslint-disable-next-line max-len
-          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-
-          setUploadProgress(progress);
-        },
-        () => {
-          toast({
-            title: 'ERROR',
-            description: 'Something went wrong',
-            status: 'warning',
-            duration: 2000,
-            isClosable: false,
-            variant: 'top-accent',
-            position: 'top',
-          });
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setIsUpload(false);
-            dispatch(postActions.actions.addCoverUrl(downloadURL));
-            toast({
-              title: 'SUCCESS',
-              description: 'Photo successfully updated!',
-              status: 'success',
-              duration: 2000,
-              isClosable: false,
-              variant: 'top-accent',
-              position: 'top',
-            });
-          });
+      setUploadProgress(progress);
+    },
+    () => {
+      toast({
+        title: 'ERROR',
+        description: 'Something went wrong',
+        status: 'warning',
+        duration: 2000,
+        isClosable: false,
+        variant: 'top-accent',
+        position: 'top',
+      });
+    },
+    () => {
+      getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+        setIsUpload(false);
+        dispatch(postActions.actions.addCoverUrl([downloadURL, idx]));
+        toast({
+          title: 'SUCCESS',
+          description: 'Photo successfully updated!',
+          status: 'success',
+          duration: 2000,
+          isClosable: false,
+          variant: 'top-accent',
+          position: 'top',
         });
+      });
+    });
+  };
+
+  const uploadFotos = () => {
+    if (coverFiles.length > 0) {
+      coverFiles.forEach((file, idx) => {
+        uploadFoto(file, idx);
       });
 
       setCoverFiles([]);
@@ -268,7 +274,7 @@ export const CreatePostForm: FC<Props> = ({ action }) => {
 
   return (
     <>
-      {posts && (
+      {posts.length > 0 && (
         <Menu>
           <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
             Статті
@@ -276,7 +282,12 @@ export const CreatePostForm: FC<Props> = ({ action }) => {
           <MenuList>
             {posts.map((post) => {
               return (
-                <MenuItem key={post.id}>
+                <MenuItem
+                  key={post.id}
+                  _hover={{
+                    cursor: isUpdate ? 'pointer' : 'initial',
+                  }}
+                >
 
                   <Text
                     borderRadius="0.375rem"
@@ -299,21 +310,28 @@ export const CreatePostForm: FC<Props> = ({ action }) => {
                   </Text>
 
                   {isDelete && (
-                    <IconButton
-                      alignSelf="flex-end"
-                      mr="14px"
+                    <Flex
+                      borderRadius="0.375rem"
+                      align="center"
+                      justify="center"
                       color="white"
+                      p="6px"
                       bg="darkred"
                       _hover={{
                         bg: 'red',
+                        cursor: 'pointer',
                       }}
                       aria-label="Call Segun"
-                      size="sm"
+                      // size="sm"
                       onClick={
                         () => handleDeletePost(post.id)
                       }
-                      icon={<DeleteIcon />}
-                    />
+                      // icon={}
+                    >
+                      <DeleteIcon
+                        fontSize="16px"
+                      />
+                    </Flex>
                   )}
                 </MenuItem>
               );
@@ -369,7 +387,7 @@ export const CreatePostForm: FC<Props> = ({ action }) => {
               aria-label="Call Segun"
               size="sm"
               isDisabled={coverFiles.length === 0}
-              onClick={uploadFoto}
+              onClick={uploadFotos}
               icon={<AddIcon />}
             />
           )}
@@ -388,37 +406,15 @@ export const CreatePostForm: FC<Props> = ({ action }) => {
             />
           </FormLabel>
 
-          <FormLabel htmlFor="title">
-            <Text>
+          <Box mb="20px">
+            <Text
+              fontWeight="600"
+              mb="8px"
+            >
               Додати опис
             </Text>
-
-            <Textarea
-              placeholder=""
-              size="sm"
-              resize="vertical"
-              rows={8}
-              onChange={handleSetPostDescr}
-              value={descr}
-            />
-          </FormLabel>
-
-          <IconButton
-            alignSelf="flex-end"
-            mb="20px"
-            mr="14px"
-            color="white"
-            bg={colors.main}
-            _hover={{
-              bg: 'grey',
-              color: colors.main,
-            }}
-            aria-label="Call Segun"
-            size="sm"
-            isDisabled={descr.length === 0}
-            onClick={addPostDescr}
-            icon={<AddIcon />}
-          />
+            <DefaultEditor value={description} onChange={handleDescrInput} />
+          </Box>
 
           <Button
             type="button"
